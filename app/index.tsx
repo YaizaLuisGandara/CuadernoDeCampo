@@ -18,7 +18,6 @@ export default function MenuPrincipal() {
   useEffect(() => {
     const inicializarApp = async () => {
       try {
-        // 1. Verificar sesión
         const { data: { session } } = await supabase.auth.getSession();
         
         if (!session) {
@@ -26,15 +25,11 @@ export default function MenuPrincipal() {
           return;
         }
 
-        // 2. Verificar Rol en la tabla profiles
-        const { data: profiles, error } = await supabase
+        const { data: profiles } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', session.user.id)
           .maybeSingle();
-
-          console.log("MI ID DE USUARIO:", session.user.id); // <--- AÑADE ESTO
-          console.log("PERFIL ENCONTRADO:", profiles);       // <--- AÑADE ESTO
 
         if (profiles?.role === 'admin') {
           setIsAdmin(true);
@@ -54,7 +49,6 @@ export default function MenuPrincipal() {
     router.replace('/login');
   };
 
-  // Mientras comprueba la sesión, mostramos un cargando para que no parpadee
   if (loading) {
     return (
       <View style={styles.loadingCenter}>
@@ -66,17 +60,26 @@ export default function MenuPrincipal() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <View>
+        {/* BOTÓN ACERCA DE (AUTORÍA) */}
+        <TouchableOpacity 
+          style={styles.infoBtn} 
+          onPress={() => router.push('/acerca-de')}
+        >
+          <MaterialCommunityIcons name="information-outline" size={28} color="#666" />
+        </TouchableOpacity>
+
+        <View style={{ flex: 1, marginLeft: 15 }}>
           <Text style={styles.welcome}>Bienvenido,</Text>
           <Text style={styles.title}>Gestión Agrícola</Text>
         </View>
+
         <TouchableOpacity style={styles.logoutBtn} onPress={cerrarSesion}>
           <MaterialCommunityIcons name="logout" size={24} color="#D32F2F" />
           <Text style={styles.logoutTxt}>Salir</Text>
         </TouchableOpacity>
       </View>
 
-      {/* SECCIÓN ADMIN: Solo se renderiza si isAdmin es true */}
+      {/* SECCIÓN ADMIN */}
       {isAdmin && (
         <TouchableOpacity 
           style={styles.adminCard} 
@@ -91,7 +94,7 @@ export default function MenuPrincipal() {
         </TouchableOpacity>
       )}
 
-      {/* GRID DE BOTONES NORMALES */}
+      {/* GRID DE BOTONES */}
       <View style={styles.grid}>
         <TouchableOpacity 
           style={[styles.card, { backgroundColor: '#D32F2F' }]} 
@@ -126,6 +129,12 @@ export default function MenuPrincipal() {
         </TouchableOpacity>
       </View>
 
+      {/* PIE DE PÁGINA DE PROPIEDAD */}
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2026 Yaiza Luis Gándara</Text>
+        <Text style={styles.footerSub}>Software de Propiedad Privada</Text>
+      </View>
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );
@@ -135,12 +144,12 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5', padding: 20 },
   loadingCenter: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f5f5f5' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, marginBottom: 25 },
+  infoBtn: { padding: 5 },
   welcome: { fontSize: 16, color: '#666' },
   title: { fontSize: 28, fontWeight: 'bold', color: '#333' },
   logoutBtn: { alignItems: 'center', padding: 5 },
   logoutTxt: { fontSize: 12, color: '#D32F2F', fontWeight: 'bold' },
   
-  // Estilo del botón Admin
   adminCard: { 
     backgroundColor: '#1A237E', 
     padding: 20, 
@@ -148,11 +157,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center', 
     marginBottom: 25,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4
+    elevation: 4
   },
   adminText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
   adminSub: { color: '#C5CAE9', fontSize: 12, marginTop: 2 },
@@ -167,5 +172,9 @@ const styles = StyleSheet.create({
     marginBottom: 15, 
     elevation: 3 
   },
-  cardText: { color: 'white', fontSize: 16, fontWeight: 'bold', marginTop: 10 }
+  cardText: { color: 'white', fontSize: 16, fontWeight: 'bold', marginTop: 10 },
+  
+  footer: { marginTop: 30, alignItems: 'center', opacity: 0.5 },
+  footerText: { fontSize: 12, fontWeight: 'bold', color: '#333' },
+  footerSub: { fontSize: 10, color: '#666' }
 });

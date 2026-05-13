@@ -1,0 +1,32 @@
+========================================================================
+AVISO DE PROPIEDAD Y LICENCIA DE USO PRIVADO
+========================================================================
+Software: Sistema de Gestión Agrícola (Campaña Familiar)
+Versión: 1.0.0
+Autor: Yaiza Luis Gándara
+Fecha: 2024
+
+1. PROPIEDAD INTELECTUAL
+Este software, incluyendo su código fuente, diseño de interfaz, lógica de
+cálculo y estructura de base de datos, es propiedad intelectual exclusiva 
+de Yaiza Luis Gándara. Todos los derechos reservados.
+
+2. LICENCIA DE USO
+Se otorga una licencia de uso limitada, no exclusiva y personal a los 
+miembros autorizados de la familia para la gestión de las campañas agrícolas. 
+Este software se entrega "tal cual", para facilitar el control de entregas.
+
+3. RESTRICCIONES
+Queda terminantemente prohibida:
+   a) La reproducción, copia o distribución total o parcial del código fuente.
+   b) La comercialización de este software a terceros.
+   c) La modificación de la autoría o eliminación de los avisos de copyright.
+   d) El uso del sistema por personas ajenas al círculo autorizado por el autor.
+
+4. PROTECCIÓN DE DATOS
+El autor no se hace responsable del mal uso de la información introducida, 
+siendo responsabilidad del usuario final la veracidad de los datos.
+
+========================================================================
+DERECHOS DE AUTOR PROTEGIDOS - Yaiza Luis Gándara - 2024
+========================================================================
