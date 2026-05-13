@@ -1,3 +1,9 @@
+/**
+ * (c) 2024 - 2026 Yaiza Luis Gándara
+ * Todos los derechos reservados.
+ * Este software es propiedad privada y su copia o distribución 
+ * sin autorización está prohibida.
+ */
 import { Picker } from '@react-native-picker/picker'; // Asegúrate de tener esta librería instalada
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';

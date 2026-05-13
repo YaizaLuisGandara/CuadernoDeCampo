@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Switch } from 'react-native';
-import { supabase } from '../lib/supabase';
-import { useRouter } from 'expo-router';
+/**
+ * (c) 2024 - 2026 Yaiza Luis Gándara
+ * Todos los derechos reservados.
+ * Este software es propiedad privada y su copia o distribución 
+ * sin autorización está prohibida.
+ */
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // npx expo install @react-native-async-storage/async-storage
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { supabase } from '../lib/supabase';
 
 export default function Login() {
   const router = useRouter();

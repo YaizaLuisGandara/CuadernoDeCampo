@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, Modal, TextInput } from 'react-native';
-import { supabase } from '../lib/supabase';
-import { useRouter } from 'expo-router';
+/**
+ * (c) 2024 - 2026 Yaiza Luis Gándara
+ * Todos los derechos reservados.
+ * Este software es propiedad privada y su copia o distribución 
+ * sin autorización está prohibida.
+ */
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { supabase } from '../lib/supabase';
 
 export default function PerfilScreen() {
   const router = useRouter();

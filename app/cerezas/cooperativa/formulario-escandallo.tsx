@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { supabase } from '../../../lib/supabase';
+/**
+ * (c) 2024 - 2026 Yaiza Luis Gándara
+ * Todos los derechos reservados.
+ * Este software es propiedad privada y su copia o distribución 
+ * sin autorización está prohibida.
+ */
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { supabase } from '../../../lib/supabase';
 
 // 1. Definimos una interfaz para que TS sepa qué hay dentro del objeto de calibres
 interface DatosEscandallo {

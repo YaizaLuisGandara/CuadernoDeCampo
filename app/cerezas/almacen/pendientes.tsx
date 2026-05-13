@@ -1,3 +1,9 @@
+/**
+ * (c) 2024 - 2026 Yaiza Luis Gándara
+ * Todos los derechos reservados.
+ * Este software es propiedad privada y su copia o distribución 
+ * sin autorización está prohibida.
+ */
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, Modal, RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { supabase } from '../../../lib/supabase';

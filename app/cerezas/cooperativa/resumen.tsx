@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Alert } from 'react-native';
-import { supabase } from '../../../lib/supabase';
+/**
+ * (c) 2024 - 2026 Yaiza Luis Gándara
+ * Todos los derechos reservados.
+ * Este software es propiedad privada y su copia o distribución 
+ * sin autorización está prohibida.
+ */
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { supabase } from '../../../lib/supabase';
 
 export default function ResumenCampana() {
   const [loading, setLoading] = useState(true);
