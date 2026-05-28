@@ -40,21 +40,20 @@ export default function PanelCooperativa() {
         </View>
         <View>
           <Text style={styles.menuText}>Escandallos</Text>
-          <Text style={styles.menuSubtext}>Calibres, precios y ganancias</Text>
+          <Text style={styles.menuSubtext}>Consultar escandallos en la Web</Text>
         </View>
       </TouchableOpacity>
-
-      {/* TRATAMIENTOS */}
+      {/* PRECIOS */}
       <TouchableOpacity 
         style={styles.menuItem} 
-        onPress={() => router.push('/cerezas/cooperativa/tratamientos')} 
+        onPress={() => router.push('/cerezas/cooperativa/GestionPrecios')}
       >
-        <View style={[styles.iconBox, { backgroundColor: '#69F0AE' }]}>
-          <MaterialCommunityIcons name="spray" size={30} color="black" />
+        <View style={[styles.iconBox, { backgroundColor: '#53ff40' }]}>
+          <MaterialCommunityIcons name="calculator" size={30} color="black" />
         </View>
         <View>
-          <Text style={styles.menuText}>Tratamientos</Text>
-          <Text style={styles.menuSubtext}>Cuaderno de fitosanitarios</Text>
+          <Text style={styles.menuText}>Precios</Text>
+          <Text style={styles.menuSubtext}>Precios de los Escandallos</Text>
         </View>
       </TouchableOpacity>
 
@@ -68,26 +67,23 @@ export default function PanelCooperativa() {
         </View>
         <View>
           <Text style={styles.menuText}>Historial de Entregas</Text>
-          <Text style={styles.menuSubtext}>Entregas registradas</Text>
+          <Text style={styles.menuSubtext}>Escandallos con Precios</Text>
         </View>
       </TouchableOpacity>
 
-      {/* Resumen de Campaña */}
+      {/* TRATAMIENTOS */}
       <TouchableOpacity 
         style={styles.menuItem} 
-        onPress={() => router.push('/cerezas/cooperativa/resumen')}
+        onPress={() => router.push('/cerezas/cooperativa/tratamientos')} 
       >
-        <View style={[styles.iconBox, { backgroundColor: '#1565C0' }]}>
-          <MaterialCommunityIcons name="chart-bar" size={30} color="white" />
+        <View style={[styles.iconBox, { backgroundColor: '#00d5ff' }]}>
+          <MaterialCommunityIcons name="spray" size={30} color="black" />
         </View>
         <View>
-          <Text style={styles.menuText}>Resumen de Campaña</Text>
-          <Text style={styles.menuSubtext}>Kilos, euros y medias</Text>
+          <Text style={styles.menuText}>Tratamientos</Text>
+          <Text style={styles.menuSubtext}>Cuaderno de fitosanitarios</Text>
         </View>
       </TouchableOpacity>
-
-      
-
           </ScrollView>
         );
       }

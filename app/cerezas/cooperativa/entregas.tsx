@@ -64,7 +64,6 @@ export default function EntregaKilos() {
           finca_id: fincaSel.id,
           user_id: user.id,
           kilos_netos: parseFloat(kilos.replace(',', '.')),
-          momento_dia: momento,
           variedad_cereza: variedad,
           observaciones: observaciones,
           fecha: new Date().toISOString().split('T')[0]
@@ -121,21 +120,6 @@ export default function EntregaKilos() {
           value={kilos}
           onChangeText={setKilos}
         />
-      </View>
-
-      <Text style={styles.label}>Momento del día</Text>
-      <View style={styles.row}>
-        {['mañana', 'tarde'].map(m => (
-          <TouchableOpacity 
-            key={m} 
-            style={[styles.selector, momento === m && styles.selectorActive]}
-            onPress={() => setMomento(m)}
-          >
-            <Text style={[styles.selectorText, momento === m && styles.selectorTextActive]}>
-              {m.toUpperCase()}
-            </Text>
-          </TouchableOpacity>
-        ))}
       </View>
 
       <Text style={styles.label}>Variedad (Opcional)</Text>

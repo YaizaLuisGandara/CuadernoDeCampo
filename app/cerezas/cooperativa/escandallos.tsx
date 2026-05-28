@@ -5,8 +5,8 @@
  * sin autorización está prohibida.
  */
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { supabase } from '../../../lib/supabase';
 
@@ -15,9 +15,13 @@ export default function EscandallosScreen() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    fetchEntregasSinEscandallo();
-  }, []);
+  // useFocusEffect se ejecuta cada vez que el usuario vuelve a ver esta pantalla.
+  // Es perfecto para que, al regresar del Scraper, los datos se actualicen solos.
+  useFocusEffect(
+    useCallback(() => {
+      fetchEntregasSinEscandallo();
+    }, [])
+  );
 
   async function fetchEntregasSinEscandallo() {
     try {
@@ -72,7 +76,7 @@ export default function EscandallosScreen() {
     </TouchableOpacity>
   );
 
-  if (loading) {
+  if (loading && entregas.length === 0) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" color="#D32F2F" />
@@ -86,6 +90,15 @@ export default function EscandallosScreen() {
       <Text style={styles.title}>Pendientes de Escandallo</Text>
       <Text style={styles.subtitle}>Selecciona una pesada para introducir los precios de la cooperativa</Text>
       
+      {/* BOTÓN DE SINCRONIZACIÓN AUTOMÁTICA POR WEB SCRAPING */}
+      <TouchableOpacity 
+        style={styles.syncButton}
+        onPress={() => router.push('./scraper')}
+      >
+        <MaterialCommunityIcons name="cloud-sync" size={24} color="white" style={{ marginRight: 8 }} />
+        <Text style={styles.syncButtonText}>Sincronizar desde la Web</Text>
+      </TouchableOpacity>
+
       {entregas.length === 0 ? (
         <View style={styles.empty}>
           <MaterialCommunityIcons name="check-all" size={80} color="#2E7D32" />
@@ -110,7 +123,26 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8f9fa', padding: 20 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   title: { fontSize: 22, fontWeight: 'bold', color: '#333' },
-  subtitle: { fontSize: 14, color: '#666', marginBottom: 20 },
+  subtitle: { fontSize: 14, color: '#666', marginBottom: 15 },
+  syncButton: {
+    flexDirection: 'row',
+    backgroundColor: '#15803d',
+    padding: 14,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+  },
+  syncButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   card: {
     backgroundColor: '#fff',
     padding: 18,
@@ -131,7 +163,7 @@ const styles = StyleSheet.create({
   fincaText: { fontSize: 14, color: '#1A237E', fontWeight: '600', marginLeft: 4 },
   rightSide: { alignItems: 'center', justifyContent: 'center' },
   btnLabel: { fontSize: 10, color: '#D32F2F', fontWeight: 'bold', marginBottom: 2 },
-  empty: { flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50 },
+  empty: { flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 30 },
   emptyText: { fontSize: 24, fontWeight: 'bold', color: '#2E7D32', marginTop: 10 },
   emptySub: { fontSize: 16, color: '#777', textAlign: 'center', marginTop: 5 },
 });

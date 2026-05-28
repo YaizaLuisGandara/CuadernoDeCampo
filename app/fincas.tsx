@@ -14,6 +14,7 @@ export default function GestionFincas() {
   const [nombre, setNombre] = useState('');
   const [localidad, setLocalidad] = useState('');
   const [hectareas, setHectareas] = useState('');
+  const [utch, setUtch] = useState(''); // Código de parcela según la cooperativa
   const [cultivo, setCultivo] = useState('Cerezas'); // Valor por defecto
   
   const [fincas, setFincas] = useState<any[]>([]);
@@ -57,6 +58,7 @@ export default function GestionFincas() {
             nombre: nombre, 
             localidad: localidad, 
             hectareas: parseFloat(hectareas.replace(',', '.')), // Acepta comas y puntos
+            utch: utch.trim() !== '' ? utch.trim() : null, // Guarda el UTCH si el usuario lo pone
             cultivo: cultivo,
             user_id: user.id 
           }
@@ -68,6 +70,7 @@ export default function GestionFincas() {
       setNombre('');
       setLocalidad('');
       setHectareas('');
+      setUtch('');
       Alert.alert("Éxito", "Finca guardada correctamente");
       fetchFincas(); // Recargamos la lista
 
@@ -103,13 +106,20 @@ export default function GestionFincas() {
           onChangeText={setHectareas} 
           keyboardType="numeric"
         />
+        <TextInput 
+          style={styles.input} 
+          placeholder="Código UTCH Cooperativa (ej: 01-02770)" 
+          value={utch} 
+          onChangeText={setUtch} 
+          autoCapitalize="characters"
+        />
 
         <TouchableOpacity style={styles.btnGuardar} onPress={guardarFinca} disabled={loading}>
           {loading ? (
             <ActivityIndicator color="white" />
           ) : (
             <>
-              <MaterialCommunityIcons name="content-save" size={20} color="white" />
+              <MaterialCommunityIcons name="content-save" size={20} color="white" style={{ marginRight: 5 }} />
               <Text style={styles.btnText}> GUARDAR FINCA</Text>
             </>
           )}
@@ -124,9 +134,17 @@ export default function GestionFincas() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <View>
+            <View style={styles.cardContent}>
               <Text style={styles.cardText}>{item.nombre}</Text>
-              <Text style={styles.cardSubtext}>{item.municipio} • {item.hectareas} ha</Text>
+              <Text style={styles.cardSubtext}>
+                {item.localidad || item.municipio} • {item.hectareas} ha
+              </Text>
+              {item.utch && (
+                <View style={styles.utchBadge}>
+                  <MaterialCommunityIcons name="tag" size={12} color="#1E3A8A" />
+                  <Text style={styles.utchText}>UTCH: {item.utch}</Text>
+                </View>
+              )}
             </View>
             <MaterialCommunityIcons name="chevron-right" size={24} color="#ccc" />
           </View>
@@ -168,6 +186,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 2 
   },
+  cardContent: { flex: 1 },
   cardText: { fontSize: 17, fontWeight: 'bold', color: '#333' },
-  cardSubtext: { fontSize: 13, color: '#777', marginTop: 2 }
+  cardSubtext: { fontSize: 13, color: '#777', marginTop: 2 },
+  utchBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#EFF6FF',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 6,
+    marginTop: 6,
+    borderWidth: 0.5,
+    borderColor: '#BFDBFE'
+  },
+  utchText: {
+    fontSize: 11,
+    color: '#1E3A8A',
+    fontWeight: 'bold',
+    marginLeft: 4
+  }
 });
