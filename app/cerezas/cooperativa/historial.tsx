@@ -3,8 +3,8 @@
  * Todos los derechos reservados.
  */
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { supabase } from '../../../lib/supabase';
 
@@ -15,9 +15,13 @@ export default function HistorialEntregas() {
   const [escandalloSeleccionado, setEscandalloSeleccionado] = useState<any>(null);
   const [loadingLineas, setLoadingLineas] = useState(false);
   const [precios, setPrecios] = useState<any[]>([]);
-  const router = useRouter();
-
-  useEffect(() => { fetchHistorial(); }, []);
+  
+  // useFocusEffect refresca los datos cada vez que entras en la pantalla
+  useFocusEffect(
+    useCallback(() => {
+      fetchHistorial();
+    }, [])
+  );
 
   const fetchHistorial = async () => {
     setLoading(true);
@@ -34,7 +38,6 @@ export default function HistorialEntregas() {
     setEscandalloSeleccionado({ entrega, lineas: [] });
 
     try {
-      // 1. Traer precios vigentes para esa semana
       const { data: preciosData } = await supabase
         .from('precios_calibres')
         .select('*')
@@ -42,7 +45,6 @@ export default function HistorialEntregas() {
         .gte('fecha_fin', entrega.fecha);
       setPrecios(preciosData || []);
 
-      // 2. Traer cabecera y líneas
       const { data: cabeceras } = await supabase.from('escandallos_cabecera').select('id, num_albaran').eq('fecha', entrega.fecha).eq('user_id', entrega.user_id);
       if (!cabeceras || cabeceras.length === 0) throw new Error("No hay detalle para este albarán.");
 
